@@ -7,13 +7,13 @@ Langage utilisé: NodeJS
 ## Requêtes autorisées
 
 ### Récuperer l'ID
-GET : https://nywwfgl5hl.execute-api.eu-west-3.amazonaws.com/getid
+GET : https://api.tisamo.fr/workshop/getid
 
 ### Signaler
 
-POST : https://nywwfgl5hl.execute-api.eu-west-3.amazonaws.com/report
+POST : https://api.tisamo.fr/workshop//report
 ARGS : { source, url }
 
 ### Check le site
-POST : https://nywwfgl5hl.execute-api.eu-west-3.amazonaws.com/getsite
+POST : https://api.tisamo.fr/workshop//getsite
 ARGS : { url }
