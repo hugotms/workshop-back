@@ -1,11 +1,15 @@
+'use strict'
+const AWS = require('aws-sdk');
+const lambda = new AWS.Lambda({ region: 'eu-west-3' });
 let bdd = new AWS.DynamoDB.DocumentClient();
 
 export const report = async (RequestParams) => {
+    const {url, source} = JSON.parse(RequestParams.body);
     let params = {
         TableName: "Reported",
         Item: {
-            url: RequestParams.url,
-            source : RequestParams.source,
+            url: url,
+            source : source,
             date : new Date(),
         }
     };
@@ -22,4 +26,3 @@ export const report = async (RequestParams) => {
         });
     }
 }
-//------------ PUT -----------------------------
