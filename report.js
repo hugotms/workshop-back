@@ -3,15 +3,15 @@ const AWS = require('aws-sdk');
 const lambda = new AWS.Lambda({ region: 'eu-west-3' });
 let bdd = new AWS.DynamoDB.DocumentClient();
 
-export const report = async (RequestParams) => {
+exports.report = async (RequestParams) => {
     const {url, source} = JSON.parse(RequestParams.body);
     let params = {
-        TableName: "Reported",
+        TableName: "reported",
         Item: {
-            id: context.awsRequestId,
+            id: RequestParams.requestContext.requestId,
             url: url,
             source : source,
-            date : new Date(),
+            date : new Date().toISOString()
         }
     };
     try {
@@ -23,7 +23,7 @@ export const report = async (RequestParams) => {
     } catch (err) {
         return JSON.stringify({
             statusCode: 404,
-            data: 'Unable to put requested information'
+            data: err
         });
     }
 }

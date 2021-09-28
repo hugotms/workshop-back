@@ -14,7 +14,7 @@ const checkUrl = (url) => {
         let data = bdd.get(params).promise();
         return 200;
     } catch (err) {
-         return 403;
+        return 403;
     }
 }
 
@@ -75,7 +75,7 @@ const checkMatch = (url) => {
     }
 }
 
-export const getSite = async (event) => {
+exports.getSite = async (event) => {
     let response = ""
     let url = JSON.parse(event.body);
 
