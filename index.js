@@ -1,3 +1,7 @@
+//const { getId } = require("./getId");
+const { report } = require("./report");
+const { getSite } = require("./getSite")
+
 exports.handler = async (event) => {
 const { getId } = require("./getId");
 const { report } = require("./report");
@@ -7,10 +11,10 @@ const { getSite } = require("./getSite")
 
     switch (event.path) {
         case "/getId":
-            responseBody = getId(event);
+            //responseBody = getId(event);
             break;
         case "/report":
-            responseBody = report(event);
+            responseBody = await report(event);
             break;
         case "/getSite":
             responseBody = getSite(event);
