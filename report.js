@@ -7,15 +7,16 @@ export const report = async (RequestParams) => {
             url: RequestParams.url,
             source : RequestParams.source,
             date : new Date(),
+            bla: 'bla',
         }
     };
     try {
         let res = await bdd.put(params).promise();
     } catch (err) {
-        responseBody = JSON.stringify({
-            statusCode: 404,
-            data: 'Unable to put requested information'
-        });
+        // responseBody = JSON.stringify({
+        //     statusCode: 404,
+        //     data: 'Unable to put requested information'
+        // });
     }
 }
 //------------ PUT -----------------------------
