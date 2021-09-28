@@ -8,6 +8,7 @@ export const report = async (RequestParams) => {
     let params = {
         TableName: "Reported",
         Item: {
+            id: context.awsRequestId,
             url: url,
             source : source,
             date : new Date(),
