@@ -1,3 +1,7 @@
+const { getId } = require("./getId");
+const { report } = require("./report");
+const { getSite } = require("./getSite")
+
 exports.handler = async (event) => {
     let responseBody = "";
 
