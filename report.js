@@ -23,7 +23,7 @@ exports.report = async (RequestParams) => {
     } catch (err) {
         return JSON.stringify({
             statusCode: 404,
-            data: err
+            data: 'Unable to get requested information'
         });
     }
 }

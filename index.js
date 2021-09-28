@@ -12,8 +12,8 @@ exports.handler = async (event) => {
         case "/report":
             responseBody = await report(event);
             break;
-        case "/getSite":
-            responseBody = getSite(event);
+        case "/getsite":
+            responseBody = await getSite(event);
             break;
     }
 
