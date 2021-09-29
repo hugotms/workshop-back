@@ -1,6 +1,7 @@
 const { getId } = require("./getId");
 const { report } = require("./report");
 const { getSite } = require("./getSite");
+const {getBreach} = require("./getBreach");
 
 exports.handler = async (event) => {
     let responseBody = "";
@@ -25,7 +26,7 @@ exports.handler = async (event) => {
     let response = {
         headers: {
             "Content-Type": "application/json",
-            "access-control-allow-origin" : "*"
+            "access-control-allow-origin": "*"
         },
         body: responseBody
     };
