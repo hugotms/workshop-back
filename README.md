@@ -22,4 +22,4 @@ RETURN:
   * **breachCount**: nombre de clients impactés  
   * **breachLastdate**: date du dernier breach  
   * **breachElements**: éléments impactés
-  * **percentage**: score du site
+  * **score**: score du site
