@@ -106,17 +106,81 @@ const getNumberOfReport = async (url) => {
 }
 
 const getScore = async (url) => {
-    return JSON.stringify({
-        statusCode: 200,
-        data: await getNumberOfReport(url)
-    });
+    let percentage = 100;
+    let percentageMinus = 100 / 12;
+
+    if (await getNumberOfReport(url) > 10) {
+        percentage -= percentageMinus;
+    }
+
+    let bdd = new AWS.DynamoDB.DocumentClient();
+    let params = {
+        TableName: "whitelist",
+        Key: {
+            url: url
+        }
+    };
+    try {
+        let data = await bdd.get(params).promise();
+
+        if (!data.Item.hasAntiVirus) {
+            percentage -= percentageMinus;
+        }
+
+        if (!data.Item.isBackedUp) {
+            percentage -= percentageMinus;
+        }
+
+        if (data.Item.allowedUSB) {
+            percentage -= percentageMinus;
+        }
+
+        if (!data.Item.inDatacenter) {
+            percentage -= percentageMinus;
+        }
+
+        if (!data.Item.isHarden) {
+            percentage -= percentageMinus;
+        }
+
+        if (!data.Item.isMonitored) {
+            percentage -= percentageMinus;
+        }
+
+        if (data.Item.defaultAccounts) {
+            percentage -= percentageMinus;
+        }
+
+        if (!data.Item.isUpdated) {
+            percentage -= percentageMinus;
+        }
+
+        if (!data.Item.configurationValid) {
+            percentage -= percentageMinus;
+        }
+
+        if (!data.Item.isLanSecured) {
+            percentage -= percentageMinus;
+        }
+
+        if (!data.Item.isDocumented) {
+            percentage -= percentageMinus;
+        }
+    } catch (err) {
+        console.log(err);
+    }
+
+    return percentage;
 }
 
 exports.getSite = async (event) => {
     let { url } = JSON.parse(event.body);
 
     if (await checkUrl(url) == 200) {
-        return await getScore(url);
+        return JSON.stringify({
+            statusCode: 200,
+            data: await getScore(url)
+        });
     } else {
         return await checkMatch(url);
     }
