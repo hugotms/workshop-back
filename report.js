@@ -1,17 +1,16 @@
 'use strict'
 const AWS = require('aws-sdk');
 const lambda = new AWS.Lambda({ region: 'eu-west-3' });
-let bdd = new AWS.DynamoDB.DocumentClient();
 
 exports.report = async (RequestParams) => {
-    const {url, source} = JSON.parse(RequestParams.body);
+    let bdd = new AWS.DynamoDB.DocumentClient();
+    let {url, id} = JSON.parse(RequestParams.body);
     let params = {
         TableName: "reported",
         Item: {
-            id: RequestParams.requestContext.requestId,
+            id: id,
             url: url,
-            source : source,
-            date : new Date().toISOString()
+            date : new Date().getTime() / 1000
         }
     };
     try {
@@ -23,7 +22,7 @@ exports.report = async (RequestParams) => {
     } catch (err) {
         return JSON.stringify({
             statusCode: 404,
-            data: 'Unable to get requested information'
+            data: 'Unable to set information'
         });
     }
 }

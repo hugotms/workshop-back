@@ -15,6 +15,11 @@ exports.handler = async (event) => {
         case "/getsite":
             responseBody = await getSite(event);
             break;
+        default:
+            responseBody = JSON.stringify({
+                statusCode: 404,
+                data: "Action not allowed"
+            });
     }
 
     let response = {
