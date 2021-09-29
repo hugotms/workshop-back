@@ -16,9 +16,9 @@ ARGS : { id, url }
 
 ### Check le site
 POST : https://api.tisamo.fr/workshop/getsite
-ARGS : { url }
-RETURN: 
-  breachName: nom du site
-  breachCount: nombre de clients impactés
-  breachLastdate: date du dernier breach
+ARGS : { url }\
+RETURN: \
+  breachName: nom du site\
+  breachCount: nombre de clients impactés\
+  breachLastdate: date du dernier breach\
   breachElements: éléments impactés
