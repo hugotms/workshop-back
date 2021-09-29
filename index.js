@@ -1,22 +1,18 @@
-//const { getId } = require("./getId");
-const { report } = require("./report");
-const { getSite } = require("./getSite")
-
-exports.handler = async (event) => {
 const { getId } = require("./getId");
 const { report } = require("./report");
-const { getSite } = require("./getSite")
+const { getSite } = require("./getSite");
 
+exports.handler = async (event) => {
     let responseBody = "";
 
     switch (event.path) {
-        case "/getId":
-            //responseBody = getId(event);
+        case "/workshop/getId":
+            responseBody = getId(event);
             break;
-        case "/report":
+        case "/workshop/report":
             responseBody = await report(event);
             break;
-        case "/getsite":
+        case "/workshop/getsite":
             responseBody = await getSite(event);
             break;
         default:
