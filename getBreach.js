@@ -4,21 +4,20 @@ const lambda = new AWS.Lambda({region: 'eu-west-3'});
 const fetch = require("node-fetch");
 
 exports.getBreach = async (url) => {
-    const name = getName(url);
-    const breach = await fetch(`https://haveibeenpwned.com/api/v3/breach/${name}`, {
-        method: "POST",
-    })
-        .then(r => r.json())
-        .then(r => {
-            console.log(r);
-            return r
-        }).catch(e => console.log(e));
     try {
+        const name = getName(url);
+        const breach = await fetch(`https://haveibeenpwned.com/api/v3/breach/${name}`, {
+            method: "GET",
+        })
+            .then(r => r.json())
+            .then(r => r).catch(e => {
+                throw e;
+            });
         return JSON.stringify({
             statusCode: 200,
             data: {
                 name: breach.Name,
-                breaches : breach.PwnCount,
+                count: breach.PwnCount,
                 lastDate: breach.BreachDate,
                 elements: breach.DataClasses
             }
@@ -26,7 +25,7 @@ exports.getBreach = async (url) => {
     } catch (err) {
         return JSON.stringify({
             statusCode: 404,
-            data: 'Unable to proceed information'
+            data: err
         });
     }
 }
@@ -38,4 +37,3 @@ const getName = (url) => {
     tempurl = tempurl[1];
     return tempurl;
 }
-
