@@ -1,17 +1,14 @@
-//const { getId } = require("./getId");
-const { report } = require("./report");
-const { getSite } = require("./getSite")
+const {getId} = require("./getId");
+const {report} = require("./report");
+const {getSite} = require("./getSite");
 
 exports.handler = async (event) => {
-const { getId } = require("./getId");
-const { report } = require("./report");
-const { getSite } = require("./getSite")
 
     let responseBody = "";
 
     switch (event.path) {
         case "/getId":
-            //responseBody = getId(event);
+            responseBody = await getId(event);
             break;
         case "/report":
             responseBody = await report(event);
@@ -24,7 +21,7 @@ const { getSite } = require("./getSite")
     let response = {
         headers: {
             "Content-Type": "application/json",
-            "access-control-allow-origin" : "*"
+            "access-control-allow-origin": "*"
         },
         body: responseBody
     };
