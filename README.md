@@ -11,12 +11,12 @@ GET : https://api.tisamo.fr/workshop/getid
 
 ### Signaler
 
-POST : https://api.tisamo.fr/workshop/report\
+POST : https://api.tisamo.fr/workshop/report \
 ARGS : { id, url }
 
 ### Check le site
-POST : https://api.tisamo.fr/workshop/getsite\
-ARGS : { url }\
+POST : https://api.tisamo.fr/workshop/getsite \
+ARGS : { url } \
 RETURN: \
   breachName: nom du site\
   breachCount: nombre de clients impactés\
