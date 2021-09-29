@@ -107,9 +107,15 @@ const getNumberOfReport = async (url) => {
 
 const getScore = async (url) => {
     let percentage = 100;
-    let percentageMinus = 100 / 12;
+    let percentageMinus = 100 / 13;
+    let { getBreach } = require("./getBreach");
 
     if (await getNumberOfReport(url) > 10) {
+        percentage -= percentageMinus;
+    }
+
+    let breaches = await getBreach(url);
+    if (breaches.breachCount > 10) {
         percentage -= percentageMinus;
     }
 
@@ -166,21 +172,30 @@ const getScore = async (url) => {
         if (!data.Item.isDocumented) {
             percentage -= percentageMinus;
         }
-    } catch (err) {
-        console.log(err);
-    }
 
-    return percentage;
+        return JSON.stringify({
+            statusCode: 200,
+            data: {
+                score: percentage,
+                breachName: breaches.breachName,
+                breachCount: breaches.breachCount,
+                breachLastDate: breaches.breachLastDate,
+                breachElements: breaches.breachElements
+            }
+        });
+    } catch (err) {
+        return JSON.stringify({
+            statusCode: 403,
+            data: err
+        });
+    }
 }
 
 exports.getSite = async (event) => {
     let { url } = JSON.parse(event.body);
 
     if (await checkUrl(url) == 200) {
-        return JSON.stringify({
-            statusCode: 200,
-            data: await getScore(url)
-        });
+        return await getScore(url);
     } else {
         return await checkMatch(url);
     }
