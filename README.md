@@ -11,9 +11,9 @@ GET : https://api.tisamo.fr/workshop/getid
 
 ### Signaler
 
-POST : https://api.tisamo.fr/workshop//report
-ARGS : { source, url }
+POST : https://api.tisamo.fr/workshop/report
+ARGS : { id, url }
 
 ### Check le site
-POST : https://api.tisamo.fr/workshop//getsite
+POST : https://api.tisamo.fr/workshop/getsite
 ARGS : { url }
