@@ -1,21 +1,25 @@
-const {getId} = require("./getId");
-const {report} = require("./report");
-const {getSite} = require("./getSite");
+const { getId } = require("./getId");
+const { report } = require("./report");
+const { getSite } = require("./getSite");
 
 exports.handler = async (event) => {
-
     let responseBody = "";
 
     switch (event.path) {
-        case "/getId":
-            responseBody = await getId(event);
+        case "/workshop/getId":
+            responseBody = getId(event);
             break;
-        case "/report":
+        case "/workshop/report":
             responseBody = await report(event);
             break;
-        case "/getSite":
-            responseBody = getSite(event);
+        case "/workshop/getsite":
+            responseBody = await getSite(event);
             break;
+        default:
+            responseBody = JSON.stringify({
+                statusCode: 404,
+                data: "Action not allowed"
+            });
     }
 
     let response = {
