@@ -3,6 +3,10 @@ const { report } = require("./report");
 const { getSite } = require("./getSite")
 
 exports.handler = async (event) => {
+const { getId } = require("./getId");
+const { report } = require("./report");
+const { getSite } = require("./getSite")
+
     let responseBody = "";
 
     switch (event.path) {
@@ -31,3 +35,4 @@ exports.handler = async (event) => {
     };
     return response;
 };
+
