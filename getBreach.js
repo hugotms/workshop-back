@@ -16,10 +16,10 @@ exports.getBreach = async (url) => {
         return JSON.stringify({
             statusCode: 200,
             data: {
-                name: breach.Name,
-                count: breach.PwnCount,
-                lastDate: breach.BreachDate,
-                elements: breach.DataClasses
+                breachName: breach.Name,
+                breachCount: breach.PwnCount,
+                breachLastDate: breach.BreachDate,
+                breachElements: breach.DataClasses
             }
         });
     } catch (err) {
