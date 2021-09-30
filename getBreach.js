@@ -7,12 +7,11 @@ exports.getBreach = async (url) => {
     try {
         const name = getName(url);
         const breach = await axios.get(`https://haveibeenpwned.com/api/v3/breach/${name}`).then(r=>r.data);
-        // console.log(breach);
         return JSON.stringify({
             statusCode: 200,
             data: {
                 breachName: breach.Name,
-                breacheCount : breach.PwnCount,
+                breachCount : breach.PwnCount,
                 breachLastDate: breach.BreachDate,
                 breachElements: breach.DataClasses
             }
@@ -20,7 +19,9 @@ exports.getBreach = async (url) => {
     } catch (err) {
         return JSON.stringify({
             statusCode: 404,
-            data: 'Unable to proceed information'
+            data: {
+                status: 'Aucune fuite de données détectée'
+            }
         });
     }
 }

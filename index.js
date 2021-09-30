@@ -6,8 +6,8 @@ exports.handler = async (event) => {
     let responseBody = "";
 
     switch (event.path) {
-        case "/workshop/getId":
-            responseBody = getId(event);
+        case "/workshop/getid":
+            responseBody = await getId(event);
             break;
         case "/workshop/report":
             responseBody = await report(event);

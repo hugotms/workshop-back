@@ -69,13 +69,13 @@ const checkMatch = async (url) => {
         } else {
             return JSON.stringify({
                 statusCode: 402,
-                data: 'Unknown website'
+                data: 'Site web inconnu'
             });
         }
     } catch (err) {
         return JSON.stringify({
             statusCode: 403,
-            data: 'Unable to get requested information'
+            data: "Impossible de récupérer l'information"
         });
     }
 }
@@ -107,15 +107,23 @@ const getNumberOfReport = async (url) => {
 
 const getScore = async (url) => {
     let percentage = 100;
-    let percentageMinus = 100 / 13;
     let { getBreach } = require("./getBreach");
-
-    if (await getNumberOfReport(url) > 10) {
-        percentage -= percentageMinus;
-    }
+    let percentageMinus;
 
     let breaches = await getBreach(url);
-    if (breaches.breachCount > 10) {
+    let breachReturn = JSON.parse(breaches);
+    let breachData = breachReturn.data;
+
+    if (breachReturn.statusCode == 200) {
+        percentageMinus = 100 / 13;
+        if (breachData.breachCount > 10) {
+            percentage -= percentageMinus;
+        }
+    } else {
+        percentageMinus = 100 / 12;
+    }
+
+    if (await getNumberOfReport(url) > 10) {
         percentage -= percentageMinus;
     }
 
@@ -176,11 +184,8 @@ const getScore = async (url) => {
         return JSON.stringify({
             statusCode: 200,
             data: {
-                score: percentage,
-                breachName: breaches.breachName,
-                breachCount: breaches.breachCount,
-                breachLastDate: breaches.breachLastDate,
-                breachElements: breaches.breachElements
+                ...breachData,
+                score: percentage
             }
         });
     } catch (err) {
